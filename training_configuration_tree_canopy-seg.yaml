@@ -1,0 +1,7 @@
+path: /Users/mitchellpalmer/Projects/solafune-canopy-capstone-clean/
+train: data/images/train
+val: data/images/train
+
+names: 
+  0: individual_tree
+  1: group_of_tress

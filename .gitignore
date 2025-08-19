@@ -1,2 +1,7 @@
-data/
+data/images/
+data/labels/
 *.tif
+*.pt
+*.sh
+runs/
+

@@ -52,3 +52,16 @@ Data Ingestion
 - Model artifacts and notebooks with visual outputs
 
 - Final written report summarizing methodology, findings, and future directions
+
+
+
+
+
+pre plan structure the data
+
+create model
+train model
+
+use model on evluatative data
+
+reformat to submit

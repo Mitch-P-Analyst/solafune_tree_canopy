@@ -1,0 +1,9 @@
+# Auto-generated for YOLOv8 segmentation
+path: /Users/mitchellpalmer/Projects/solafune-canopy-capstone-clean/data/model-data
+train: data/model-data/train/images
+val: data/model-data/valid/images
+test: data/model-data/test/images
+
+names:
+  - individual_tree
+  - group_of_trees
