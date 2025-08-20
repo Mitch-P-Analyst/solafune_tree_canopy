@@ -4,4 +4,6 @@ data/labels/
 *.pt
 *.sh
 runs/
+*.txt
+*.zip
 
