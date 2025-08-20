@@ -1,6 +1,6 @@
 # path: solafune-canopy-capstone-clean/datasets/
-train: datasets/data/images/train
-val: datasets/data/images/val
+train: data/images/train
+val: data/images/val
 
 
 names: 
