@@ -1,6 +1,7 @@
-path: /Users/mitchellpalmer/Projects/solafune-canopy-capstone-clean/
-train: data/images/train
-val: data/images/train
+# path: solafune-canopy-capstone-clean/datasets/
+train: datasets/data/images/train
+val: datasets/data/images/val
+
 
 names: 
   0: individual_tree
