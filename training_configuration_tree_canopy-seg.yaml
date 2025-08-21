@@ -1,7 +1,9 @@
-# path: solafune-canopy-capstone-clean/datasets/
+# Train_model
+
+# path: solafune-canopy-capstone-clean/
 train: data/images/train
 val: data/images/val
-
+test: data/images/test
 
 names: 
   0: individual_tree

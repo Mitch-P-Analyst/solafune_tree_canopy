@@ -1,0 +1,20 @@
+# Training Model Configuration File
+
+# YOLO Model Parameters / Overrides
+data: 'training_configuration_tree_canopy-seg.yaml' # Data Source
+device: 'mps'             # 'mps' = Apple Metal GPU
+epochs: 10                # number of training epochs
+imgsz: 416                # image size (default 640)
+batch: -1                 # choose optimal batch size at 60% capacity of GPU
+seed: 0                   # Faced numers NMS issues. Stating for comparisons across parameter changes/model changes
+conf: 0.5                 # filter low-confidence preds early
+iou: 0.5                  # merge more aggressively in NMS
+max_det: 100              # cap kept detections per image
+val: True
+plots: False            # don't draw plots every val
+agnostic_nms: True      # merge across classes
+workers: 1                # keep small on macOS/MPS
+# optimizer='adam',       # optimizer 
+lr0: 0.005                # decreased learning rate to minimsize NMS errors
+name: 'training_fastNMS'
+project: runs/segment     # Output destination
