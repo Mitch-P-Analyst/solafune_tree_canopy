@@ -1,0 +1,10 @@
+# Train_model
+
+path: .
+train: data/processed/images/train
+val: data/processed/images/val
+test: data/processed/images/test
+
+names: 
+  0: individual_tree
+  1: group_of_trees
