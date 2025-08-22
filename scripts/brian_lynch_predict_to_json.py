@@ -68,5 +68,5 @@ for k, image_file in enumerate(image_files):
     submission_json["images"][k]["annotations"] = image_annotations
 
 # dump JSON (now only native Python types)
-with open(REPO_ROOT / "submission_b.json", "w") as f:
+with open(REPO_ROOT / 'exports'/ "submission_b.json", "w") as f:
     json.dump(submission_json, f, indent=4)

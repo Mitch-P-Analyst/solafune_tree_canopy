@@ -4,22 +4,26 @@
 Build a tree canopy detection pipeline using Sentinel‑2 data; ingest and preprocess imagery, train segmentation models, and prepare submissions for the Solafune competition.
 
 ## Directory Structure  
-
-├── data/ # Downloaded satellite imagery and mosaics
-├── notebooks/ # Jupyter notebooks for each step
-│ ├── 01_data_ingest.ipynb
-│ ├── 02_preprocessing.ipynb
-│ ├── 03_model_training.ipynb
-│ └── 04_evaluation.ipynb
-├── src/ # Python scripts/modules
-│ ├── ingestion.py
-│ ├── preprocessing.py
-│ ├── modeling.py
-│ └── evaluation.py
-├── outputs/ # Model outputs, submission files, logs
-├── README.md # This file
+```
+├── data/                               # Downloaded satellite imagery and mosaics
+│ ├── processed
+│ │ ├── images
+│ │ ├── labels
+│ │ └── JSONs
+│ ├── raw
+│ │ ├── zips
+│ │ └── JSONs
+├── notebooks/                          # Jupyter notebooks for preprocessing
+│ └── 01_data_preparation.ipynb
+├── scripts/                            # Python scripts
+│ ├── 02_train_model.py
+│ ├── 03_predict_model.py
+│ └── 04_export_submission.py
+├── runs / segments /                   # Relevant model runs
+├── exports/                            # JSON Submission files
+├── README.md                           # This file
 └── requirements.txt
-
+```
 
 
 ## Installation  
