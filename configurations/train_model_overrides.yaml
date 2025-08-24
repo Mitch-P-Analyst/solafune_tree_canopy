@@ -2,21 +2,20 @@
 
 # YOLO Model Parameters / Overrides
 data: 'configurations/model_data-seg.yaml' # Data Source
-device: 'mps'             # 'mps' = Apple Metal GPU
-epochs: 20               # number of training epochs
-imgsz: 416                # image size (default 640)
-batch: 2                 # smaller batch to reduce memory
-nbs: 32                  # default Nominal Batch Size = 64. Decrease to control gradient accummulation factor
-seed: 0                   # State for comparisons across hyperparameter changes/model changes
-conf: 0.5                 # filter low-confidence preds early
-iou: 0.5                  # merge more aggressively in NMS
-max_det: 100              # cap kept detections per image
+device: 'None'               # 'mps' = Apple Metal GPU | None = best fit available
+epochs: 20                  # number of training epochs
+imgsz: 416                  # image size (default 640)
+batch: 2                    # smaller batch to reduce memory
+nbs: 32                     # default Nominal Batch Size = 64. Decrease to control gradient accummulation factor
+seed: 0                     # State for comparisons across hyperparameter changes/model changes
+iou: 0.75                   # merge more aggressively in NMS
+max_det: 100                # cap kept detections per image
 val: True
-plots: False            # don't draw plots every val
-agnostic_nms: True      # merge across classes
-workers: 1                # keep small on macOS/MPS
-# optimizer='adam',       # optimizer 
-lr0: 0.00125               # Default = 0.01 | decreased learning rate to minimsize NMS errors / Rule of Thumb: Smaller effective batch → lower learning rate
-amp: True                 # Automatic Mixed Precision (AMP) training, reduces memory usage
-name: 'Yolo8s'
-project: runs/segment     # Output destination
+plots: False                # don't draw plots every val
+agnostic_nms: True          # merge across classes
+workers: 1                  # keep small on macOS/MPS
+# optimizer='adam',         # optimizer 
+lr0: 0.00125                # Default = 0.01 | decreased learning rate to minimsize NMS errors / Rule of Thumb: Smaller effective batch → lower learning rate
+amp: True                   # Automatic Mixed Precision (AMP) training, reduces memory usage
+name: 'Yolo8strain'
+project: runs/segment       # Output destination

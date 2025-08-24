@@ -1,0 +1,20 @@
+# Test Model Configuration File
+
+# YOLO Model Parameters / Overrides
+data: 'configurations/model_data-seg.yaml' # Data Source
+device: 'None'              # 'mps' = Apple Metal GPU | 'None' select best fit given availability
+imgsz: 416                # image size (default 640)
+batch: 6                  # smaller batch to reduce memory | Default 16
+seed: 0                   # State for comparisons across hyperparameter changes/model changes
+iou: 0.75                 # IoU
+conf: 0.001               # extremely Confidence Level Threshold for evaluation to produce PR Curve
+max_det: 200              # cap kept detections per image
+save_json: True           # Saves outputs into JSON for analysis
+plots: True               # generates/saves plots of predss vs GT, confusion matrices, and PR curves
+agnostic_nms: True        # merge across classes
+workers: 1                # keep small on macOS/MPS
+visualize: True           # Visualizes the ground truths, true positives, false positives and false negatives for each image
+# optimizer='adam',       # optimizer 
+split: 'test'             # data is specific to 'test' folder
+name: 'Yolo8sTest'
+project: runs/segment     # Output destination

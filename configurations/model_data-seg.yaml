@@ -1,4 +1,4 @@
-# Train_model
+# Model Data
 
 path: .
 train: data/processed/images/train

@@ -1,7 +1,11 @@
 # Solafune Tree Canopy Detection Capstone
 
 ## Project Overview  
-Build a tree canopy detection pipeline using Sentinel‑2 data; ingest and preprocess imagery, train segmentation models, and prepare submissions for the Solafune competition.
+The goal of this capstone is to design and implement a geospatial pipeline for detecting tree canopy—leveraging Sentinel‑2 imagery. We will use the solafune_tools library to manage data ingestion (including cloudless mosaics and optional 5× super-resolution), develop segmentation models, and produce competitive-ready submissions in the Solafune Tree Canopy Detection challenge.
+
+### Motivation
+Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge develops robust applied skills while yielding practical impacts.
+
 
 ## Directory Structure  
 ```
