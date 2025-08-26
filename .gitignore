@@ -6,5 +6,5 @@
 train_annotations_coco.json
 test_annotations_coco.json
 exports/
-runs/segment/*.DS_Store
+runs/segment/*
 **/.DS_Store
