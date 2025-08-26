@@ -1,9 +1,9 @@
-data/images/
-data/labels/
 *.tif
 *.pt
 *.sh
-runs/
 *.txt
 *.zip
-
+train_annotations_coco.json
+test_annotations_coco.json
+exports/
+runs/segment/*

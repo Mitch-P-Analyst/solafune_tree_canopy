@@ -10,19 +10,28 @@ Accurate tree canopy mapping supports urban planning, biodiversity conservation,
 ## Directory Structure  
 ```
 ├── data/                               # Downloaded satellite imagery and mosaics
-│ ├── processed
-│ │ ├── images
-│ │ ├── labels
-│ │ └── JSONs
-│ ├── raw
-│ │ ├── zips
-│ │ └── JSONs
+│ ├── processed/
+│ │ ├── images/
+│ │ │  ├── predict/
+│ │ │  ├── train/
+│ │ │  ├── eval/
+│ │ │  └── test/
+│ │ ├── labels/
+│ │ │  ├── train/
+│ │ │  ├── eval/
+│ │ │  └── test/
+│ │ └── JSONs/
+│ ├── raw/
+│ │ ├── zips/
+│ │ └── JSONs/
+│ └── temp/
 ├── notebooks/                          # Jupyter notebooks for preprocessing
 │ └── 01_data_preparation.ipynb
 ├── scripts/                            # Python scripts
 │ ├── 02_train_model.py
-│ ├── 03_predict_model.py
-│ └── 04_export_submission.py
+│ ├── 03_eval_model.py
+│ ├── 04_predict_model.py
+│ └── 05_export_submission.py
 ├── runs / segments /                   # Relevant model runs
 ├── exports/                            # JSON Submission files
 ├── README.md                           # This file
