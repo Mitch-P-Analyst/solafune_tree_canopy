@@ -1,7 +1,7 @@
 # Prediction Model Configuration File
 
 # YOLO Model Parameters / Overrides
-source: 'data/images/predict' # Data Source from REPO_ROOT
+source: 'data/processed/images/predict' # Data Source from REPO_ROOT
 stream:  True                 # yield one-by-one (lower GPU memory usage)
                                 # stream = False | Output is a list of results
                                 # stream = True | Output is a 'generator' that yeilds **1** results at a time
