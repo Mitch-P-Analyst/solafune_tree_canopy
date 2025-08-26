@@ -8,3 +8,4 @@ test_annotations_coco.json
 exports/
 runs/segment/*
 **/.DS_Store
+!requirements.txt
