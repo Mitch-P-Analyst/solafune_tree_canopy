@@ -183,13 +183,17 @@ print(f'Annotations List Index 0 : {annotations_list[0]}')
 
 predict_answer = append_imgs_annotations(images_sorted, annotations_list) # Append Annotations to Images
 
-print(f'Predict Answer Output')
-# Output Submission JSON 
-OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-with open(OUT_JSON, "w") as f:
-    json.dump({"images": predict_answer}, f, indent=2)
+print(f'Predict Answer Output Index 0 : {predict_answer[0]}')
 
 
+# ---- ignore test below
+
+# # Output Submission JSON 
+# OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
+# with open(OUT_JSON, "w") as f:
+#     json.dump({"images": predict_answer}, f, indent=2)
+
+# ----
 
 # Assign Scene Type from Sample Answer to Submission
 
@@ -222,9 +226,10 @@ image_scenes_df = pd.DataFrame(image_scenes) # Transform Image_scenes list into 
 scene_map = image_scenes_df.set_index('filename')['scene_type'].to_dict() # Restructure image_scenes DF
 
 
-# Reopen Submission JSON File
-with open(OUT_JSON) as f:
-    submission = json.load(f)
+# # Reopen Submission JSON File
+# with open(OUT_JSON) as f:
+#     submission = json.load(f)
+submission = predict_answer
 
 
 # Update each image in submission['images']
@@ -242,4 +247,4 @@ with open(OUT_JSON, "w") as f:
 
 print(f"Export Submission Complete \
       Saved As: 'Submission' \
-      Save At : {OUT_JSON}")
+      Saved At : {OUT_JSON}")
