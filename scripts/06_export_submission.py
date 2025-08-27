@@ -150,7 +150,7 @@ ID_to_Name = {
 #--Procedure--#
 print('Get Meta Data')
 meta = get_meta(IMGS) # Retrieve Meta Data
-print(f'Meta Data Keys: {meta.keys()}')
+print(f'Meta Data Keys')
 
 images = [] # Produce Images list
 
@@ -183,17 +183,8 @@ print(f'Annotations List Index 0 : {annotations_list[0]}')
 
 predict_answer = append_imgs_annotations(images_sorted, annotations_list) # Append Annotations to Images
 
-print(f'Predict Answer Output Index 0 : {predict_answer[0]}')
+print(f'Predict Answer Outputed')
 
-
-# ---- ignore test below
-
-# # Output Submission JSON 
-# OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-# with open(OUT_JSON, "w") as f:
-#     json.dump({"images": predict_answer}, f, indent=2)
-
-# ----
 
 # Assign Scene Type from Sample Answer to Submission
 
@@ -225,20 +216,17 @@ image_scenes_df = pd.DataFrame(image_scenes) # Transform Image_scenes list into 
 
 scene_map = image_scenes_df.set_index('filename')['scene_type'].to_dict() # Restructure image_scenes DF
 
-
-# # Reopen Submission JSON File
-# with open(OUT_JSON) as f:
-#     submission = json.load(f)
 submission = predict_answer
 
-
+print('Append scene_types to predict_answer')
 # Update each image in submission['images']
-for image in submission['images']:
+for image in submission:
     filename = image['file_name']
     if image['scene_type'] == "Unknown" and filename in scene_map:
         image['scene_type'] = scene_map[filename]
 
 
+print('Export Submission')
 # Rewrite Submission JSON File
 OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
 with open(OUT_JSON, "w") as f:
