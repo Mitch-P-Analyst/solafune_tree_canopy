@@ -5,7 +5,7 @@ import torch
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-img_dir = REPO_ROOT / "data/images/test"
+img_dir = "/content/solafune-canopy-capstone/data/processed/images/predict"
 
 # Load template submission (has the "images" list with file_name/width/height/etc.)
 with open(REPO_ROOT / "model-data" / "sample_answer.json", "r") as f:
