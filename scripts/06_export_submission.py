@@ -235,3 +235,8 @@ for image in submission['images']:
 OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
 with open(OUT_JSON, "w") as f:
     json.dump(submission, f, indent=2)
+
+
+print(f"Export Submission Complete \
+      Saved As: 'Submission' \
+      Save At : {OUT_JSON}")

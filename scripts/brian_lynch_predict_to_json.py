@@ -32,9 +32,12 @@ for k, image_file in enumerate(image_files):
         results = model.predict(
             source=image_path,
             save=False,
-            imgsz=1024,
-            device="mps",     # change to "cpu" if MPS not available
+            imgsz=640,
+            device="None",     # change to "cpu" if MPS not available
             verbose=False,
+            conf=0.2,
+            IoU=0.6,
+            rect=False
         )
 
     r = results[0]
