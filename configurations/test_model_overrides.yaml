@@ -5,15 +5,15 @@ data: 'configurations/model_data-seg.yaml' # Data Source
 split: 'test'             # data is specific to 'test' folder
 device: 'mps'             # 'mps' = Apple Metal GPU | 'None' select best fit given availability
 imgsz: 896                # image size (default 640)
-rect: False               # force letterbox to a single fixed size
+rect: True                # force letterbox to a single fixed size
 batch: 1                  # bulletproof when plotting; optional if rect=False
 iou: 0.75                 # IoU
 conf: 0.001               # extremely Confidence Level Threshold for evaluation to produce PR Curve
-max_det: 300             # cap kept detections per image
+max_det: 300              # cap kept detections per image
 save_json: True           # Saves outputs into JSON for analysis
 save_conf: True           # Save per-box confidence scores to JSON for further PR curve analysis or post-filtering.
 plots: True               # generates/saves plots of predss vs GT, confusion matrices, and PR curves
-agnostic_nms: False        # merge across classes
+agnostic_nms: False       # Dont merge across classes
 workers: 1                # keep small on macOS/MPS
 visualize: False          # Visualizes the ground truths, true positives, false positives and false negatives for each image
 verbose: True

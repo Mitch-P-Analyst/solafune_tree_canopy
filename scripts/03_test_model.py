@@ -64,7 +64,7 @@ print(df)
 validation_df = metrics.to_df()
 
 # where YOLO saved this run
-out_dir = Path(model.val.save_dir)
+out_dir = Path(metrics.save_dir)
 out_dir.mkdir(parents=True, exist_ok=True)
 
 # write a CSV file into that folder
@@ -81,7 +81,7 @@ seg_metrics = getattr(metrics, task)
 
 print(f"AP@0.75 ({task}): {seg_metrics.map75:.4f}")
 print(f"AP@0.50 ({task}): {seg_metrics.map50:.4f}")
-print(f"Classes  mAP@0.50:0.95 ({task}): {m.map:.4f}")
+print(f"Classes  mAP@0.50:0.95 ({task}): {seg_metrics.map:.4f}")
 
 # Per-class mAP (COCO mAP@0.50:0.95) if exposed
 names = metrics.names if isinstance(metrics.names, (list, tuple)) else list(metrics.names.values())
@@ -94,7 +94,7 @@ if hasattr(seg_metrics, "maps") and seg_metrics.maps is not None:
 
 # State output location
 try:
-    print("Saved to:", model.val.save_dir)
+    print("Saved to:", metrics.save_dir)
 except Exception:
     print('Error - Location Not Printed')
 
