@@ -51,34 +51,35 @@ def get_meta(IMGS):
 def get_annotations(LABELS):
     annotations = []
 
-    for txt_file in Path(LABELS).iterdir():
-        image_name = txt_file.name
+    for txt_file in sorted(Path(LABELS).iterdir()):
+        if txt_file.is_file() and txt_file.suffix.lower() == ".txt":
+            image_name = txt_file.name
 
-        with open(txt_file, 'r') as file:
-             for line in file:
+            with open(txt_file, 'r') as file:
+                for line in file:
 
-                # 1. Split the line into tokens
-                tokens = line.strip().split()
+                    # 1. Split the line into tokens
+                    tokens = line.strip().split()
 
-                # 2. Convert tokens into usable pieces
-                class_id = int(tokens[0])                    # first token
-                *coords, confidence_level = map(float, tokens[1:])  
-                # all middle tokens are coords, last one is confidence
-                
+                    # 2. Convert tokens into usable pieces
+                    class_id = int(tokens[0])                    # first token
+                    *coords, confidence_level = map(float, tokens[1:])  
+                    # all middle tokens are coords, last one is confidence
+                    
 
-                # 3. Group coords into pairs (x,y)
-                segmentation = [
-                    (coords[i], coords[i+1])
-                    for i in range(0, len(coords), 2)
-                ]
+                    # 3. Group coords into pairs (x,y)
+                    segmentation = [
+                        (coords[i], coords[i+1])
+                        for i in range(0, len(coords), 2)
+                    ]
 
-                # 4. Save everything into dict
-                annotations.append({
-                    "image": image_name,
-                    "class": class_id,
-                    "confidence_level": confidence_level,
-                    "segmentation": segmentation
-                })
+                    # 4. Save everything into dict
+                    annotations.append({
+                        "image": image_name,
+                        "class": class_id,
+                        "confidence_level": confidence_level,
+                        "segmentation": segmentation
+                    })
 
     return annotations
 
