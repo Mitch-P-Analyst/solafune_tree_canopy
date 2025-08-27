@@ -36,7 +36,7 @@ for k, image_file in enumerate(image_files):
             device="None",     # change to "cpu" if MPS not available
             verbose=False,
             conf=0.2,
-            IoU=0.6,
+            iou=0.6,
             rect=False
         )
 
