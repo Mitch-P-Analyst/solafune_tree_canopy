@@ -5,10 +5,10 @@ import torch
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-img_dir = "/content/solafune-canopy-capstone/data/processed/images/predict"
+img_dir = "data/processed/images/predict"
 
 # Load template submission (has the "images" list with file_name/width/height/etc.)
-with open(REPO_ROOT / "model-data" / "sample_answer.json", "r") as f:
+with open(REPO_ROOT / "exports/sample_answer.json", "r") as f:
     submission_json = json.load(f)
 
 # filenames we must predict for, in order
@@ -21,10 +21,11 @@ class_dictionary = {
 }
 
 # load model
-model_path = REPO_ROOT / "runs/segment/training_fastNMS12/weights/best.pt"
+model_path = REPO_ROOT / "runs/segment/Yolo11n-segtrain_20250827-042851/weights/best.pt"
 model = YOLO(model_path)
 
 # predict for each image
+img_dir = Path(img_dir)   
 for k, image_file in enumerate(image_files):
     image_path = str(img_dir / image_file)  # Path -> str for Ultralytics
 
@@ -71,5 +72,5 @@ for k, image_file in enumerate(image_files):
     submission_json["images"][k]["annotations"] = image_annotations
 
 # dump JSON (now only native Python types)
-with open(REPO_ROOT / 'exports'/ "submission_b.json", "w") as f:
+with open(REPO_ROOT / 'exports'/ "submission_b1.json", "w") as f:
     json.dump(submission_json, f, indent=4)

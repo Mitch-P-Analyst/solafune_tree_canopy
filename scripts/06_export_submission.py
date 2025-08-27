@@ -12,7 +12,7 @@ REPO_ROOT = Path.cwd()
 
 CURRENT_DATETIME = datetime.now()
 
-LABELS = REPO_ROOT / 'runs/segment/Yolov8spredict/labels'
+LABELS = REPO_ROOT / 'runs/segment/Yolo11npredict_20250827'
 IMGS = REPO_ROOT / 'data/processed/images/predict'
 OUT_JSON = REPO_ROOT / 'exports'/ str(CURRENT_DATETIME) / 'submission.json'
 
@@ -148,11 +148,13 @@ ID_to_Name = {
 
 
 #--Procedure--#
-
+print('Get Meta Data')
 meta = get_meta(IMGS) # Retrieve Meta Data
+print(f'Meta Data Keys: {meta.keys()}')
 
 images = [] # Produce Images list
 
+print('Append Meta Data To Images List')
 for m in meta.values(): # Append Meta Data to Images List
     images.append({
         'file_name' : m['file_name'],
@@ -164,8 +166,8 @@ for m in meta.values(): # Append Meta Data to Images List
     })
     
 images_sorted = sorted(images, key=lambda x: x['file_name']) # Sort Images
-
     
+print('Get Annotations')
 annotations_list = get_annotations(LABELS) # Retrieve Annotations & Denormalise Segmentations to Pixels
 
 for annot in annotations_list: # Clean Annotations
@@ -177,10 +179,11 @@ for annot in annotations_list: # Clean Annotations
 
     # convert confidence_level -> percentage string
     annot['confidence_level'] = f"{annot['confidence_level']:.2f}"
-    
+print(f'Annotations List Index 0 : {annotations_list[0]}')    
 
 predict_answer = append_imgs_annotations(images_sorted, annotations_list) # Append Annotations to Images
 
+print(f'Predict Answer Output')
 # Output Submission JSON 
 OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
 with open(OUT_JSON, "w") as f:
