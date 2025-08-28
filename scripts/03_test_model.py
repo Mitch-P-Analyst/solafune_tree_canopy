@@ -1,3 +1,4 @@
+# Import Packages
 import ultralytics
 from ultralytics import YOLO
 import numpy as np
@@ -6,6 +7,7 @@ import yaml
 from pathlib import Path
 import torch
 import pandas as pd
+from shutil import copy2
 
 # Directories and Paths
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -16,11 +18,11 @@ DATA_CONFIG_PATH = REPO_ROOT / 'configurations' / 'model_data-seg.yaml'
 with open(REPO_ROOT / 'configurations' / 'test_model_overrides.yaml', 'r') as f:
     overrides = yaml.safe_load(f)
 
-# # override the path in your dictionary before calling train
+# Override path in your dictionary
 overrides['data'] = str(DATA_CONFIG_PATH)
 
-# Load Trained Model Weights
-weights = REPO_ROOT / 'runs/segment/training_fastNMS12/weights/best.pt' # Weights from Train Model / Modify where necessary
+# Assign Trained Model Weights
+weights = REPO_ROOT / 'runs/segment/Yolo11s_canopy_832_adamw_train_20250828-0533/weights/best.pt' # Weights from Train Model / Modify where necessary
 
 # Load Trained Model's Weights
 model = YOLO(str(weights))  
@@ -90,11 +92,17 @@ if hasattr(seg_metrics, "maps") and seg_metrics.maps is not None:
         print(f"{name:>16}  mAP@0.50:0.95 = {seg_metrics.maps[i]:.4f}")
 
 
-
+# Copy test_parameters into output folder
+test_model_overrides = Path('configurations/test_model_overrides.yaml')
+copy2(test_model_overrides, metrics.save_dir / test_model_overrides.name )
+try:
+    print(f'"test_model_parameters" Copied to : {metrics.save_dir}')
+except Exception:
+    print('Error - Parameters Not Copied To Output')
 
 # State output location
 try:
-    print("Saved to:", metrics.save_dir)
+    print("Output Metrics Saved to:", metrics.save_dir)
 except Exception:
     print('Error - Location Not Printed')
 
