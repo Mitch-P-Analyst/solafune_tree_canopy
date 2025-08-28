@@ -6,6 +6,9 @@ The goal of this capstone is to design and implement a geospatial pipeline for d
 ### Motivation
 Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge develops robust applied skills while yielding practical impacts.
 
+### Tools
+- YOLO ML
+
 
 ## Directory Structure  
 ```
@@ -41,29 +44,63 @@ Accurate tree canopy mapping supports urban planning, biodiversity conservation,
 
 ## Installation  
 ```bash
-git clone <repo-url>
+git clone <https://github.com/Mitch-P-Analyst/solafune-canopy-capstone.git>
 cd solafune-tree-canopy
 pip install -r requirements.txt
-pip install solafune_tools[super_resolution]  # for optional SR module
 ```
 
-## Usage
-Data Setup:
+## Steps
+- Download Data
+<https://drive.google.com/drive/folders/1sB7XVJuFYcJCqzbiHcxKC96WAWCKo3Zj?usp=drive_link>
 
-``` python
-import solafune_tools
-solafune_tools.set_data_directory("data/")
-```
+├── raw data/                            # Python scripts
+│ ├── JSONs/
+│ │ └── train_annotations.json
+│ ├── ZIPs/
+│ │ ├── evaluation_images.zip
+│ │ └── train_images.zip
 
-Run Notebooks: Follow the sequence in notebooks/:
 
-Ingest: Download imagery
+- Run Notebooks & Scripts in sequence: 
 
-Preprocess: Normalize, compute NDVI, tile
+    - 01_data_preparation.ipynb
+        - JSON conversion 
+            - Solafune format -> COCO format
+            - COCO format -> YOLO format
+        - Unpacking Raw Data
+            - Extract ZIP files
+                - Training
+                - Prediction
+        - Data Split Images & Annotations
+            - Training
+            - Testing
+            - Validation 
 
-Train: Baseline and deep learning models
+    - 02_train_model.py
+        - Modify train model parameters YAML file for desired training and naming
+            - [Train Model Parameters](configurations/train_model_overrides.yaml)
+        - Select YOLO Model Version
+            - [Train Model Py File : Row 21](scripts/02_train_model.py)
+        
+    - 03_test_model.py
+        - Modify test model parameters YAML file for fine tuning model
+            - [Test Model Parameters](configurations/test_model_overrides.yaml)
+        - Select Train Models Weights for validation
+            - [Trained Model Segment Outputs | 'Train' Model weights.pt](runs/segment)
+                - [Test Model Py File : Row 23](scripts/03_test_model.py) 
 
-Evaluate: Assess performance, generate submissions
+    - 05_predict_model.py
+        - Modify predict model parameters YAML file for final model predictions
+            - [Predict Model Parameter](configurations/predict_model_overrides.yaml)
+        - Select Train Models Weights for validation
+            - [Trained Model Segment Outputs | 'Train' Model weights.pt](runs/segment)
+                - [Test Model Py File : Row 23](scripts/05_predict_model.py) 
+
+    - 06_export_submission.py
+        - Select Predict Models Annotations for Submission Jile
+            - [Predict Model Segment Outputs | 'Predict' Model labels.txt](runs/segment)
+                - [Export Submission Py File : Row 16](scripts/06_export_submission_.py) 
+
 
 ## License
 MIT License
