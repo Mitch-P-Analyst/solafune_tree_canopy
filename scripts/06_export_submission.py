@@ -45,6 +45,8 @@ def get_meta(IMGS):
                 "scene_type" : scene_type_default
 
             }
+    else:
+      print('Error - IMGs Not Exist')
     return meta_data
 
 # Get Annotations
@@ -150,7 +152,13 @@ ID_to_Name = {
 #--Procedure--#
 print('Get Meta Data')
 meta = get_meta(IMGS) # Retrieve Meta Data
-print(f'Meta Data Keys')
+meta_2items = list(meta.items())[:2]
+meta_2keys = list(meta)[:2]
+
+print(f'Meta Data Items : {meta_2items}')
+
+print(f'Meta Data Keys : {meta_2items}')
+
 
 images = [] # Produce Images list
 
@@ -165,6 +173,7 @@ for m in meta.values(): # Append Meta Data to Images List
         'annotations' : []
     })
     
+print(f'images_list : {images}')
 images_sorted = sorted(images, key=lambda x: x['file_name']) # Sort Images
     
 print('Get Annotations')
@@ -179,11 +188,14 @@ for annot in annotations_list: # Clean Annotations
 
     # convert confidence_level -> percentage string
     annot['confidence_level'] = f"{annot['confidence_level']:.2f}"
+
 print(f'Annotations List Index 0 : {annotations_list[0]}')    
+print(f'Annotations List Index 1 : {annotations_list[1]}')
+print(f'Sorted Images_list : {images_sorted}')   
 
 predict_answer = append_imgs_annotations(images_sorted, annotations_list) # Append Annotations to Images
 
-print(f'Predict Answer Outputed')
+print(f'Predict Answer Outputed : {predict_answer}')
 
 
 # Assign Scene Type from Sample Answer to Submission
