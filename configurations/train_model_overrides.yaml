@@ -2,20 +2,46 @@
 
 # YOLO Model Parameters / Overrides
 data: 'configurations/model_data-seg.yaml' # Data Source
-device: 'None'               # 'mps' = Apple Metal GPU | None = best fit available
-epochs: 20                  # number of training epochs
-imgsz: 416                  # image size (default 640)
-batch: 2                    # smaller batch to reduce memory
-nbs: 32                     # default Nominal Batch Size = 64. Decrease to control gradient accummulation factor
-seed: 0                     # State for comparisons across hyperparameter changes/model changes
-iou: 0.75                   # merge more aggressively in NMS
-max_det: 100                # cap kept detections per image
-val: True
-plots: False                # don't draw plots every val
-agnostic_nms: True          # merge across classes
-workers: 1                  # keep small on macOS/MPS
-# optimizer='adam',         # optimizer 
-lr0: 0.00125                # Default = 0.01 | decreased learning rate to minimsize NMS errors / Rule of Thumb: Smaller effective batch → lower learning rate
+
+# hardware
+device: 'None'              # 'mps' = Apple Metal GPU | None = best fit available
+workers: 8                  # keep small on macOS/MPS
 amp: True                   # Automatic Mixed Precision (AMP) training, reduces memory usage
-name: 'Yolo8strain'
+
+
+# schedule
+epochs: 100                  # number of training epochs
+patience: 50                 # early stopage if plateaus
+imgsz: 832                   # bigger than 640 (default), cheaper than 1024; good AP75 gain
+batch: 8                     # T4 + imgsz 832 usually fits 6–10; 8 is safe
+nbs: 64                      # default Nominal Batch Size = 64. Decrease to control gradient accummulation factor
+seed: 0                      # State for comparisons across hyperparameter changes/model changes
+
+# augmentation (aerial imagery friendly)
+copy_paste: 0.30                # helps segmentation; turn down if artifacts appear
+close_mosaic: 10                # disable mosaic for last X epochs to refine details
+mosaic: 0.8
+scale: 0.60
+
+# dataloader
+rect: False                 # train with mosaic/crop; keep True only for val/test
+
+# optimizer & LR
+optimizer: 'AdamW'          # optimizer
+lr0: 0.003                  # Default = 0.01 | decreased learning rate to minimsize NMS errors / Rule of Thumb: Smaller effective batch → lower learning rate | AdamW likes ~1e-3..3e-3 (SGD’s 0.01 is too high)
+
+
+# loss balance (segmentation quality ↑, AP75 ↑)
+cls: 0.3                        # low, few classes and focal-ish behaviour
+mask_ratio: 2.0                       # default is 1.0; emphasize mask quality
+
+
+# organisation
+name: 'Yolo11s_canopy_832_adamw_train'
 project: runs/segment       # Output destination
+plots: False                # don't draw plots every val
+val: True
+
+
+
+
