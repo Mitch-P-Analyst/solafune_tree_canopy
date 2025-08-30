@@ -178,6 +178,4 @@ satelite ndvi vegetation
 - scykit_py
 - raster
 
-
-
 zero-shot-learning ML
