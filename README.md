@@ -7,11 +7,14 @@ The goal of this project is to design and implement a geospatial pipeline for de
 Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge develops robust skills while yielding practical impacts while building skillsets in Geospatial Machine Learning. 
 
 ### Tools
-- YOLO
+- YOLO Machine Learning Model
     - image segmentation
-- Python 
-    - geospatial + ML pipeline
-    
+- Python 3.10
+    - base language for building the pipeline and running scripts
+    - Tasks
+        - geospatial + ML pipeline
+- PyTorch - deep learning framework used to train segmentation models
+
 ## Installation  
 ```bash
 git clone <https://github.com/Mitch-P-Analyst/solafune-canopy-capstone.git>
