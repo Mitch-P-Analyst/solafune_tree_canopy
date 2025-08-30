@@ -1,14 +1,17 @@
 # Solafune Tree Canopy Detection Capstone
 
 ## Project Overview  
-The goal of this project is to design and implement a geospatial pipeline for detecting tree canopy using Sentinel‑2 imagery. Hosted by Solafune, we will manage data imports of image segmentations, train a segmentation model, and produce a competitive-ready submissions in the Solafune Tree Canopy Detection challenge.
+The goal of this project is to design and implement a geospatial pipeline for detecting tree canopy using Sentinel‑2 imagery. Hosted by Solafune, we will manage data imports of image segmentations, train a segmentation model, and produce a competitive-ready submission in the Solafune Tree Canopy Detection challenge.
 
 ### Motivation
-Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge develops robust applied skills while yielding practical impacts while building skillsets in Geospatial Machine Learning. 
+Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge develops robust skills while yielding practical impacts while building skillsets in Geospatial Machine Learning. 
 
 ### Tools
-- YOLO ML
-
+- YOLO
+    - image segmentation
+- Python 
+    - geospatial + ML pipeline
+    
 ## Installation  
 ```bash
 git clone <https://github.com/Mitch-P-Analyst/solafune-canopy-capstone.git>
@@ -21,7 +24,7 @@ pip install -r requirements.txt
 │   ├── model_data-seg.yaml                 # dataset paths & class names
 │   ├── train_model_overrides.yaml          # training parameters
 │   ├── val_model_overrides.yaml            # validation parameters
-│   └── predict_model_overrides.yaml        # inference parameters
+│   └── predict_model_overrides.yaml        # prediction parameters
 │
 ├── data/                               # Downloaded satellite imagery and mosaics
 │   ├── processed/                       
@@ -41,22 +44,22 @@ pip install -r requirements.txt
 │   └── temp/
 │
 ├── notebooks/                          
-│   └── 01_data_preparation.ipynb         # Convert JSONs, Unzip, Split Data
+│   ├── 01_data_preparation.ipynb           # Convert JSONs, Unzip, Split Data
+│   └── 04_test_model_evaluations.ipynb     # **Optional** Indepth model evaluations
 │
-├── scripts/                            
-│   ├── 02_train_model.py
-│   ├── 03_eval_model.py 04_test_model_evaluations.ipynb
-│   ├── 04_test_model_evaluations.ipynb
-│   ├── 05_predict_model.py
-│   └── 06_export_submission.py
+├── scripts/                                
+│   ├── 02_train_model.py                   # Train YOLO Model
+│   ├── 03_test_model.py                    # Test/Valdiate YOLO Model on GT Data
+│   ├── 05_predict_model.py                 # Create predictions with trained YOLO Model on no GT Data  
+│   └── 06_export_submission.py             # Convert prediction outputs into Solafune JSON format
 │
-├── runs/segments/                      # Relevant model runs
-├── exports/                            # JSON Submission files
-├── README.md                           # This file
-└── requirements.txt
+├── runs/segments/                          # Relevant model runs
+├── exports/                                # JSON Submission files
+├── README.md                               # This file
+└── requirements.txt                        # Package requirements
 ```
 
-## Stages
+## Process
 - Download Data
 <https://drive.google.com/drive/folders/1sB7XVJuFYcJCqzbiHcxKC96WAWCKo3Zj?usp=drive_link>
 
