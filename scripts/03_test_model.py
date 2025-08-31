@@ -93,7 +93,7 @@ if hasattr(seg_metrics, "maps") and seg_metrics.maps is not None:
 
 
 # Copy test_parameters into output folder
-test_model_overrides = Path('configurations/test_model_overrides.yaml')
+test_model_overrides = Path(REPO_ROOT / 'configurations/test_model_overrides.yaml')
 copy2(test_model_overrides, metrics.save_dir / test_model_overrides.name )
 try:
     print(f'"test_model_parameters" Copied to : {metrics.save_dir}')
