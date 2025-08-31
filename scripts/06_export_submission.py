@@ -10,10 +10,10 @@ from datetime import datetime
 # Create paths
 REPO_ROOT = Path.cwd()
 
-CURRENT_DATETIME = datetime.now()
+CURRENT_DATETIME = datetime.now().strftime('%Y-%m-%d %H:%M')
 
 # Prediction Annotations
-LABELS = REPO_ROOT / 'runs/segment/Yolo11npredict_20250827' # Modify Prediction Txt annotations where necessary
+LABELS = REPO_ROOT / 'predict_Yolo11s_canopy_832_20250831' # Modify Prediction Txt annotations where necessary
 
 # 
 IMGS = REPO_ROOT / 'data/processed/images/predict'
@@ -155,8 +155,8 @@ ID_to_Name = {
 #--Procedure--#
 print('Get Meta Data')
 meta = get_meta(IMGS) # Retrieve Meta Data
-meta_2items = list(meta.items())[:2]
-meta_2keys = list(meta)[:2]
+meta_2items = list(meta.items())[:1]
+meta_2keys = list(meta)[:1]
 
 print(f'Meta Data Items : {meta_2items}')
 
@@ -176,8 +176,9 @@ for m in meta.values(): # Append Meta Data to Images List
         'annotations' : []
     })
     
-print(f'images_list : {images}')
+
 images_sorted = sorted(images, key=lambda x: x['file_name']) # Sort Images
+print(f'images_sorted ')
     
 print('Get Annotations')
 annotations_list = get_annotations(LABELS) # Retrieve Annotations & Denormalise Segmentations to Pixels
@@ -192,13 +193,16 @@ for annot in annotations_list: # Clean Annotations
     # convert confidence_level -> percentage string
     annot['confidence_level'] = f"{annot['confidence_level']:.2f}"
 
-print(f'Annotations List Index 0 : {annotations_list[0]}')    
-print(f'Annotations List Index 1 : {annotations_list[1]}')
-print(f'Sorted Images_list : {images_sorted}')   
+if annotations_list and len(annotations_list[0]) > 0:
+    print('Annotations List Completed')
 
-predict_answer = append_imgs_annotations(images_sorted, annotations_list) # Append Annotations to Images
+appended_list = append_imgs_annotations(images_sorted, annotations_list) # Append Annotations to Images
 
-print(f'Predict Answer Outputed : {predict_answer}')
+print(f'Appended_list Outputed ')
+
+predict_answer = {}
+predict_answer = {'images' : appended_list}
+print(f'Predict_Answer Formulated')
 
 
 # Assign Scene Type from Sample Answer to Submission
@@ -235,10 +239,11 @@ submission = predict_answer
 
 print('Append scene_types to predict_answer')
 # Update each image in submission['images']
-for image in submission:
+for image in submission['images']:
     filename = image['file_name']
     if image['scene_type'] == "Unknown" and filename in scene_map:
         image['scene_type'] = scene_map[filename]
+
 
 
 print('Export Submission')
