@@ -18,7 +18,7 @@ with open(REPO_ROOT / 'configurations' / 'train_model_overrides.yaml', 'r') as f
 overrides['data'] = str(DATA_CONFIG_PATH)
 
 # Load a pretrained model
-model = YOLO('yolo11s-seg.pt') # yolo version 11s segementation
+model = YOLO('yolo11m-seg.pt') # yolo version 11m segementation
 
 # Train the model
 results = model.train(**overrides)

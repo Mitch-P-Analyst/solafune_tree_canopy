@@ -13,7 +13,7 @@ REPO_ROOT = Path.cwd()
 CURRENT_DATETIME = datetime.now().strftime('%Y-%m-%d %H:%M')
 
 # Prediction Annotations
-labels = REPO_ROOT / "runs/segment/predict_train_Yolo11s_canopy_832_adamW__20251102-2247_2025-11-02 15:44" / "labels" # Modify Prediction Txt annotations where necessary
+labels = REPO_ROOT / "runs/segment/predict_train_Yolo11m_canopy_1024_adamW__20251104-0243_2025-11-03 18:47" / "labels" # Modify Prediction Txt annotations where necessary
 IMGS = REPO_ROOT / 'data/processed/images/predict'
 OUT_JSON = REPO_ROOT / 'exports'/ str(CURRENT_DATETIME) / 'submission.json'
 
