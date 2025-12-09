@@ -13,6 +13,12 @@ This project was also my first application of YOLO-based image segmentation and 
 ### Results
 My current submission model, as of **September 24th 2025**, places in the top 10 of 271 competitors on [Solafune leaderboard](https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?modal=%22%22&menu=lb&tab=public), against the assesment criteria of >75% mean IoU on the prediction dataset.
 
+My data pipeline uses a hold-out validation split to select augmentation and model hyperparameters. 
+
+For the future iterations to improve my results score, I will move to stratified k-fold cross-validation (grouped by source tile to prevent leakage, stratified by class presence) for more reliable estimates. Tto address the class imbalance between “Individual Trees” and “Group of Trees,”, I’ll implement oversampling and augmentation of the minority class and tune class-specific confidence/IoU thresholds. 
+
+Results will be reported as mean IoU and per-class IoU averaged across folds.
+
 ### Lessons Learned
 - JSON label formatting and format conversion (COCO ↔ YOLO)
 - Consistent directory structure for large-scale ML projects across local and digitial directories.
@@ -65,8 +71,9 @@ pip install -r requirements.txt
 │   │ │  └── test/                        # Required by YOLO structure
 │   │ └── JSONs/                          # Converted JSON file
 │   ├── raw/
-│   │ ├── zips/                           # Raw Data ZIP files | **Restricted by NDA**
-│   │ └── JSONs/
+│   │ ├── Solafune_raw_data.md            # Solafune Raw data access
+│   │ ├── zips/                           # Raw Data ZIP files 
+│   │ └── JSONs/                          # Raw Data JSONS
 │   └── temp/
 │
 ├── notebooks/                          
@@ -91,8 +98,7 @@ pip install -r requirements.txt
 
 ### Data
 - Data Not Sharable by Solafune Non-Disclosure Agreement.
-    - To access data, visit Solafune compeition webpage [Tree Canopy Detection](https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?menu=data&tab=&modal=%22%22) 
-<!-- <https://drive.google.com/drive/folders/1sB7XVJuFYcJCqzbiHcxKC96WAWCKo3Zj?usp=drive_link> -->
+    - To access data, read the [Solafune_raw_data.md](data/raw/Solafune_raw_data.md) file outlining required steps to reprouct this project using Solafune raw data while complying with compeition terms and conditions.
 
 ### Files & Run Order
 

@@ -206,7 +206,7 @@ print(f'Predict_Answer Formulated')
 
 # Assign Scene Type from Sample Answer to Submission
 
-sample_answer_input = REPO_ROOT / 'exports/sample_answer.json' # Acquire Sample Answer path 
+sample_answer_input = REPO_ROOT / 'data/raw/JSONs/sample_answer.json' # Acquire Sample Answer path 
 
 with open(sample_answer_input) as f: # Open Sample Answer Structure
     sample_answer = json.load(f)

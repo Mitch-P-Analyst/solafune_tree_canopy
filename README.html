@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="file:////Users/mitchellpalmer/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.19/crossnote/dependencies/katex/katex.min.css">
+      <link rel="stylesheet" href="file:////Users/mitchellpalmer/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/katex/katex.min.css">
       
       
       
@@ -33,6 +33,9 @@
 <p>This project was also my first application of YOLO-based image segmentation and geospatial data processing, providing valuable experience working with Earth Observation data formats.</p>
 <h3 id="results">Results </h3>
 <p>My current submission model, as of <strong>September 24th 2025</strong>, places in the top 10 of 271 competitors on <a href="https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?modal=%22%22&amp;menu=lb&amp;tab=public">Solafune leaderboard</a>, against the assesment criteria of &gt;75% mean IoU on the prediction dataset.</p>
+<p>My data pipeline uses a hold-out validation split to select augmentation and model hyperparameters.</p>
+<p>For the future iterations to improve my results score, I will move to stratified k-fold cross-validation (grouped by source tile to prevent leakage, stratified by class presence) for more reliable estimates. Tto address the class imbalance between “Individual Trees” and “Group of Trees,”, I’ll implement oversampling and augmentation of the minority class and tune class-specific confidence/IoU thresholds.</p>
+<p>Results will be reported as mean IoU and per-class IoU averaged across folds.</p>
 <h3 id="lessons-learned">Lessons Learned </h3>
 <ul>
 <li>JSON label formatting and format conversion (COCO ↔ YOLO)</li>
