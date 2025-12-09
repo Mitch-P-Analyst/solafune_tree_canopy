@@ -1,14 +1,17 @@
 # Solafune Tree Canopy Detection Capstone
 
 ## Project Overview  
-This project involved building a geospatial ML pipeline using Sentinel-2 imagery to detect tree canopies via image segmentation. Hosted by Solafune, I managed data imports of image segmentations, trained a segmentation model, and produced a competition-ready submission in the Solafune Tree Canopy Detection challenge.
 
-This pipeline runs on both local environments and Google Colab with minimal path changes, enabling access to GPU acceleration for faster training.
+This project involved building a geospatial ML pipeline using Sentinel-2 imagery to detect tree canopies via image segmentation. Hosted by Solafune, I managed data imports of image segmentations, trained a segmentation model, and produced a competition-ready submission for the Solafune **Tree Canopy Detection** challenge.
+
+The pipeline runs on both local environments and Google Colab with minimal path changes, enabling access to GPU acceleration for faster training.
 
 ### Motivation
-Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge helped develop strong skils in GIS data while yielding practical impacts while building skillsets in geospatial machine learning.
 
-This project was also my first application of YOLO-based image segmentation and geospatial data processing, providing valuable experience working with Earth Observation data formats.
+Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modelling. Participating in this challenge helped me develop stronger GIS and geospatial machine-learning skills while working on a problem with real-world impact.
+
+This project was also my first application of YOLO-based image segmentation and geospatial data processing, providing valuable experience working with Earth-observation data formats.
+
 
 ### Results
 My current submission model, as of **September 24th 2025**, places in the top 10 of 271 competitors on [Solafune leaderboard](https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?modal=%22%22&menu=lb&tab=public), against the assesment criteria of >75% mean IoU on the prediction dataset.
@@ -32,21 +35,27 @@ For evaluation, I tracked precision and recall for both classes (“Individual T
 
 
 ### Tools
-- YOLO Machine Learning Model
-    - image segmentation
-- Python 3.10
-    - base language for building the pipeline and running scripts
-    - Tasks
-        - geospatial + ML pipeline
-- PyTorch 
-    - deep learning framework used to train segmentation models
-- Google Colab
-    - Alternative notebook for accessing Google Colab's GPUs
-- JSON, COCOJson
-    - Retrieval and submission of labels.
-- YAML
-    - Organised model parameter files
-- GIS Toolkits
+- **YOLO segmentation models**  
+  - Image segmentation for tree canopy detection.  
+
+- **Python 3.10**  
+  - Base language for building the pipeline and running scripts.  
+  - Used for the full geospatial + ML pipeline.  
+
+- **PyTorch**  
+  - Deep-learning framework used to train segmentation models.  
+
+- **Google Colab**  
+  - Notebook environment used for GPU-accelerated training.  
+
+- **JSON / COCO JSON**  
+  - Retrieval, storage, and submission of labels.  
+
+- **YAML**  
+  - Structured configuration files for model parameters.  
+
+- **GIS toolkits**  
+  - Geospatial data handling and processing.  
 
 ## Installation  
 ```bash
@@ -56,58 +65,59 @@ pip install -r requirements.txt
 ```
 ## Repo Directory Structure  
 ```
-├── configurations/                     # YAML configs (data + overrides)
-│   ├── model_data-seg.yaml                 # dataset paths & class names
-│   ├── train_model_overrides.yaml          # training parameters
-│   ├── val_model_overrides.yaml            # validation parameters
-│   └── predict_model_overrides.yaml        # prediction parameters
+├── configurations/                         # YAML configs (data + overrides)
+│   ├── model_data-seg.yaml                 # Dataset paths & class names
+│   ├── train_model_overrides.yaml          # Training parameters
+│   ├── val_model_overrides.yaml            # Validation parameters
+│   └── predict_model_overrides.yaml        # Prediction parameters
 │
-├── data/                               # Downloaded satellite imagery and mosaics
-│   ├── processed/                       
-│   │ ├── images/
-│   │ │  ├── predict/                     # Unlabeled (no Ground Truth) data for prediction 
-│   │ │  ├── train/                       # Ground Truth Data Split for model training  
-│   │ │  ├── val/                         # Ground Truth Data Split for model valdiation  
-│   │ │  └── test/                        # Required by YOLO structure
-│   │ ├── labels/
-│   │ │  ├── train/                       # Ground Truth Labels Split for model training  
-│   │ │  ├── val/                         # Ground Truth Labels Split for model valdiation
-│   │ │  └── test/                        # Required by YOLO structure
-│   │ └── JSONs/                          # Converted JSON file
+├── data/                                   # Downloaded satellite imagery and mosaics
+│   ├── processed/
+│   │   ├── images/
+│   │   │   ├── predict/                    # Unlabelled (no GT) data for prediction
+│   │   │   ├── train/                      # Ground-truth images for training
+│   │   │   ├── val/                        # Ground-truth images for validation
+│   │   │   └── test/                       # Required by YOLO structure
+│   │   ├── labels/
+│   │   │   ├── train/                      # Ground-truth labels for training
+│   │   │   ├── val/                        # Ground-truth labels for validation
+│   │   │   └── test/                       # Required by YOLO structure
+│   │   └── JSONs/                          # Converted JSON files
 │   ├── raw/
-│   │ ├── Solafune_raw_data.md            # Solafune Raw data access
-│   │ ├── zips/                           # Raw Data ZIP files 
-│   │ └── JSONs/                          # Raw Data JSONS
+│   │   ├── Solafune_raw_data.md            # Solafune raw data access instructions
+│   │   ├── zips/                           # Raw data ZIP files
+│   │   └── JSONs/                          # Raw data JSONs
 │   └── temp/
 │
-├── notebooks/                          
-│   ├── 01_data_preparation.ipynb           # Convert JSONs, Unzip, Split Data
-│   ├── 02_train_model_colab.ipynb          # Google Colab notebook for model traiing
-│   └── 04_test_model_evaluations.ipynb     # **Optional** Indepth model evaluations
+├── notebooks/
+│   ├── 01_data_preparation.ipynb           # Convert JSONs, unzip, split data
+│   ├── 02_train_model_colab.ipynb          # Google Colab notebook for model training
+│   └── 04_test_model_evaluations.ipynb     # (Optional) In-depth model evaluations
 │
-├── scripts/                                
-│   ├── 02_train_model.py                   # Train YOLO Model
-│   ├── 03_val_model.py                     # Valdiate YOLO Model on GT Data
-│   ├── 05_predict_model.py                 # Create predictions with trained YOLO Model on no GT Data  
-│   └── 06_export_submission.py             # Convert prediction outputs into Solafune JSON format
+├── scripts/
+│   ├── 02_train_model.py                   # Train YOLO model
+│   ├── 03_val_model.py                     # Validate YOLO model on GT data
+│   ├── 05_predict_model.py                 # Create predictions on non-GT data
+│   └── 06_export_submission.py             # Convert predictions into Solafune JSON format
 │
-├── runs/segments/                          # All model training/validation/prediction results
-├── exports/                                # JSON Submission files
+├── runs/segment/                           # YOLO runs directory (train/val/predict results)
+├── exports/                                # JSON submission files
 ├── README.md                               # This file
 ├── README.html                             # README in HTML format for digital portfolio
 └── requirements.txt                        # Package requirements
+
 ```
 
 ## Process
 
 ### Data
 - Data Not Sharable by Solafune Non-Disclosure Agreement.
-    - To access data, read the [Solafune_raw_data.md](data/raw/Solafune_raw_data.md) file outlining required steps to reproduce this project using Solafune raw data while complying with compeition terms and conditions.
+    - To access data, read [Solafune_raw_data.md](data/raw/Solafune_raw_data.md) which outlines the steps required to reproduce this project using Solafune raw data while complying with competition terms and conditions.
 
 ### Files & Run Order
 
 
-#### Data Preparation
+#### 1. Data Preparation
 - Notebook:
    - ['notebooks/01_data_preparation.ipynb'](notebooks/01_data_preparation.ipynb)
        - JSON conversion
@@ -122,7 +132,7 @@ pip install -r requirements.txt
            - Validation
 
 
-#### Model Training
+#### 2. Model Training
 - You can train on a **Local Device** or on **Google Colab (GPU)**.
    - **Local Device**
        - Script:
@@ -140,7 +150,7 @@ pip install -r requirements.txt
            - Use Colab’s GPU and follow the **in-notebook** instructions to mount Drive, set paths, train model and export model weights.
 
 
-#### Model Validation
+#### 3. Model Validation
 - Script:
    - ['scripts/03_val_model.py'](scripts/03_val_mode.py)
 - Configure hyperparameters & trained model weights
@@ -152,13 +162,13 @@ pip install -r requirements.txt
        - Modify validation model parameters YAML file for fine tuning model
 
 
-#### Metric Testings (Optional)
+#### 4. Metric Testings (Optional)
 - Notebook:
    - ['notebooks/04_test_model_evaluations'](notebooks/04_test_model_evaluations.ipynb)
        - Optional Unfinished Notebook file. Containing indepth measures to analyse split data validation.
 
 
-#### Predictions
+#### 5. Predictions
 - Script:
    - ['scripts/05_predict_model.py'](scripts/05_predict_model.py)
 - Configure hyperparameters & trained model weights
@@ -170,7 +180,7 @@ pip install -r requirements.txt
        - Modify prediction model parameters YAML file for final model deployment
 
 
-#### Export
+#### 6. Export
 - Script:
    - ['scripts/06_export_submission.py'](scripts/06_export_submission.py)
        - Select Prediction Annotations on **Line 16** from `/runs/segement/` folder for Submission Jile
@@ -179,3 +189,10 @@ pip install -r requirements.txt
            labels = REPO_ROOT / "runs/segment/pred_train_Yolo11s_canopy_832_adamW__20251101-0151_2025-11-01 10:33" / "labels" # example
            ```
 
+
+## About
+
+Data science competition hosted by Solafune, tasked to train a machine-learning model capable of detecting tree canopies in multiple urban environments from aerial and satellite imagery.
+
+### Competition page:
+https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70

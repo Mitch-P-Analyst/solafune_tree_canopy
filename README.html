@@ -26,118 +26,133 @@
       
 <h1 id="solafune-tree-canopy-detection-capstone">Solafune Tree Canopy Detection Capstone </h1>
 <h2 id="project-overview">Project Overview </h2>
-<p>The project involved building a geospatial ML pipeline using Sentinel-2 imagery to detect tree canopies via image segmentation. Hosted by Solafune, I managed data imports of image segmentations, trained a segmentation model, and produced a competition-ready submission in the Solafune Tree Canopy Detection challenge.</p>
-<p>This pipeline runs on both local environments and Google Colab with minimal path changes, enabling access to GPU acceleration for faster training.</p>
+<p>This project involved building a geospatial ML pipeline using Sentinel-2 imagery to detect tree canopies via image segmentation. Hosted by Solafune, I managed data imports of image segmentations, trained a segmentation model, and produced a competition-ready submission for the Solafune <strong>Tree Canopy Detection</strong> challenge.</p>
+<p>The pipeline runs on both local environments and Google Colab with minimal path changes, enabling access to GPU acceleration for faster training.</p>
 <h3 id="motivation">Motivation </h3>
-<p>Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge helped develop strong skils in GIS data while yielding practical impacts while building skillsets in geospatial machine learning.</p>
-<p>This project was also my first application of YOLO-based image segmentation and geospatial data processing, providing valuable experience working with Earth Observation data formats.</p>
+<p>Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modelling. Participating in this challenge helped me develop stronger GIS and geospatial machine-learning skills while working on a problem with real-world impact.</p>
+<p>This project was also my first application of YOLO-based image segmentation and geospatial data processing, providing valuable experience working with Earth-observation data formats.</p>
 <h3 id="results">Results </h3>
 <p>My current submission model, as of <strong>September 24th 2025</strong>, places in the top 10 of 271 competitors on <a href="https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?modal=%22%22&amp;menu=lb&amp;tab=public">Solafune leaderboard</a>, against the assesment criteria of &gt;75% mean IoU on the prediction dataset.</p>
-<p>My data pipeline uses a hold-out validation split to select augmentation and model hyperparameters.</p>
-<p>For the future iterations to improve my results score, I will move to stratified k-fold cross-validation (grouped by source tile to prevent leakage, stratified by class presence) for more reliable estimates. Tto address the class imbalance between “Individual Trees” and “Group of Trees,”, I’ll implement oversampling and augmentation of the minority class and tune class-specific confidence/IoU thresholds.</p>
-<p>Results will be reported as mean IoU and per-class IoU averaged across folds.</p>
+<ul>
+<li>Best submission score: 0.338 (competition metric)</li>
+<li>Model: YOLO-based tree canopy segmentation on Sentinel-2 imagery</li>
+<li>Runs on: local machine + Google Colab<br>
+‍</li>
+</ul>
+<h3 id="approach">Approach </h3>
+<p>My best submission score of 0.338 used a hold-out validation split to select augmentation strategies and model hyperparameters. I iterated on augmentation across visual parameters such as rotation, hue and saturation, and image scaling, as well as duplicating annotations to increase training exposure and improve the YOLO-based model’s learning environment.</p>
+<p>For evaluation, I tracked precision and recall for both classes (“Individual Trees” and “Group of Trees”) to tune confidence thresholds and IoU settings and optimise the competition metric.</p>
 <h3 id="lessons-learned">Lessons Learned </h3>
 <ul>
 <li>JSON label formatting and format conversion (COCO ↔ YOLO)</li>
-<li>Consistent directory structure for large-scale ML projects across local and digitial directories.</li>
-<li>Benefits of augmentation techniques like HSV rotation and color grading</li>
-<li>Visual data formatting.</li>
+<li>Consistent directory structure for large-scale ML projects across local and digital directories.</li>
+<li>Benefits of augmentation techniques like HSV rotation, colour grading and image scaling.</li>
+<li>Model validation techniques such as hold-out vs k-fold cross-validation.</li>
 <li>Convolutions and convolutional neural networks.</li>
 </ul>
 <h3 id="tools">Tools </h3>
 <ul>
-<li>YOLO Machine Learning Model
+<li>
+<p><strong>YOLO segmentation models</strong></p>
 <ul>
-<li>image segmentation</li>
+<li>Image segmentation for tree canopy detection.</li>
 </ul>
 </li>
-<li>Python 3.10
+<li>
+<p><strong>Python 3.10</strong></p>
 <ul>
-<li>base language for building the pipeline and running scripts</li>
-<li>Tasks
-<ul>
-<li>geospatial + ML pipeline</li>
+<li>Base language for building the pipeline and running scripts.</li>
+<li>Used for the full geospatial + ML pipeline.</li>
 </ul>
 </li>
-</ul>
-</li>
-<li>PyTorch
+<li>
+<p><strong>PyTorch</strong></p>
 <ul>
-<li>deep learning framework used to train segmentation models</li>
+<li>Deep-learning framework used to train segmentation models.</li>
 </ul>
 </li>
-<li>Google Colab
+<li>
+<p><strong>Google Colab</strong></p>
 <ul>
-<li>Alternative notebook for accessing Google Colab's GPUs</li>
+<li>Notebook environment used for GPU-accelerated training.</li>
 </ul>
 </li>
-<li>JSON, COCOJson
+<li>
+<p><strong>JSON / COCO JSON</strong></p>
 <ul>
-<li>Retrieval and submission of labels.</li>
+<li>Retrieval, storage, and submission of labels.</li>
 </ul>
 </li>
-<li>YAML
+<li>
+<p><strong>YAML</strong></p>
 <ul>
-<li>Organised model parameter files</li>
+<li>Structured configuration files for model parameters.</li>
 </ul>
 </li>
-<li>GIS Toolkits</li>
+<li>
+<p><strong>GIS toolkits</strong></p>
+<ul>
+<li>Geospatial data handling and processing.</li>
+</ul>
+</li>
 </ul>
 <h2 id="installation">Installation </h2>
 <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> clone <span class="token operator">&lt;</span>https://github.com/Mitch-P-Analyst/solafune-canopy-capstone.git<span class="token operator">&gt;</span>
 <span class="token builtin class-name">cd</span> solafune-tree-canopy
 pip <span class="token function">install</span> <span class="token parameter variable">-r</span> requirements.txt
 </code></pre><h2 id="repo-directory-structure">Repo Directory Structure </h2>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>├── configurations/                     # YAML configs (data + overrides)
-│   ├── model_data-seg.yaml                 # dataset paths &amp; class names
-│   ├── train_model_overrides.yaml          # training parameters
-│   ├── val_model_overrides.yaml            # validation parameters
-│   └── predict_model_overrides.yaml        # prediction parameters
+<pre data-role="codeBlock" data-info="" class="language-text"><code>├── configurations/                         # YAML configs (data + overrides)
+│   ├── model_data-seg.yaml                 # Dataset paths &amp; class names
+│   ├── train_model_overrides.yaml          # Training parameters
+│   ├── val_model_overrides.yaml            # Validation parameters
+│   └── predict_model_overrides.yaml        # Prediction parameters
 │
-├── data/                               # Downloaded satellite imagery and mosaics
-│   ├── processed/                       
-│   │ ├── images/
-│   │ │  ├── predict/                     # Unlabeled (no Ground Truth) data for prediction 
-│   │ │  ├── train/                       # Ground Truth Data Split for model training  
-│   │ │  ├── val/                         # Ground Truth Data Split for model valdiation  
-│   │ │  └── test/                        # Required by YOLO structure
-│   │ ├── labels/
-│   │ │  ├── train/                       # Ground Truth Labels Split for model training  
-│   │ │  ├── val/                         # Ground Truth Labels Split for model valdiation
-│   │ │  └── test/                        # Required by YOLO structure
-│   │ └── JSONs/                          # Converted JSON file
+├── data/                                   # Downloaded satellite imagery and mosaics
+│   ├── processed/
+│   │   ├── images/
+│   │   │   ├── predict/                    # Unlabelled (no GT) data for prediction
+│   │   │   ├── train/                      # Ground-truth images for training
+│   │   │   ├── val/                        # Ground-truth images for validation
+│   │   │   └── test/                       # Required by YOLO structure
+│   │   ├── labels/
+│   │   │   ├── train/                      # Ground-truth labels for training
+│   │   │   ├── val/                        # Ground-truth labels for validation
+│   │   │   └── test/                       # Required by YOLO structure
+│   │   └── JSONs/                          # Converted JSON files
 │   ├── raw/
-│   │ ├── zips/                           # Raw Data ZIP files | **Restricted by NDA**
-│   │ └── JSONs/
+│   │   ├── Solafune_raw_data.md            # Solafune raw data access instructions
+│   │   ├── zips/                           # Raw data ZIP files
+│   │   └── JSONs/                          # Raw data JSONs
 │   └── temp/
 │
-├── notebooks/                          
-│   ├── 01_data_preparation.ipynb           # Convert JSONs, Unzip, Split Data
-│   ├── 02_train_model_colab.ipynb          # Google Colab notebook for model traiing
-│   └── 04_test_model_evaluations.ipynb     # **Optional** Indepth model evaluations
+├── notebooks/
+│   ├── 01_data_preparation.ipynb           # Convert JSONs, unzip, split data
+│   ├── 02_train_model_colab.ipynb          # Google Colab notebook for model training
+│   └── 04_test_model_evaluations.ipynb     # (Optional) In-depth model evaluations
 │
-├── scripts/                                
-│   ├── 02_train_model.py                   # Train YOLO Model
-│   ├── 03_val_model.py                     # Valdiate YOLO Model on GT Data
-│   ├── 05_predict_model.py                 # Create predictions with trained YOLO Model on no GT Data  
-│   └── 06_export_submission.py             # Convert prediction outputs into Solafune JSON format
+├── scripts/
+│   ├── 02_train_model.py                   # Train YOLO model
+│   ├── 03_val_model.py                     # Validate YOLO model on GT data
+│   ├── 05_predict_model.py                 # Create predictions on non-GT data
+│   └── 06_export_submission.py             # Convert predictions into Solafune JSON format
 │
-├── runs/segments/                          # All model training/validation/prediction results
-├── exports/                                # JSON Submission files
+├── runs/segment/                           # YOLO runs directory (train/val/predict results)
+├── exports/                                # JSON submission files
 ├── README.md                               # This file
 ├── README.html                             # README in HTML format for digital portfolio
 └── requirements.txt                        # Package requirements
+
 </code></pre><h2 id="process">Process </h2>
 <h3 id="data">Data </h3>
 <ul>
 <li>Data Not Sharable by Solafune Non-Disclosure Agreement.
 <ul>
-<li>To access data, visit Solafune compeition webpage <a href="https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?menu=data&amp;tab=&amp;modal=%22%22">Tree Canopy Detection</a></li>
+<li>To access data, read <a href="data/raw/Solafune_raw_data.md">Solafune_raw_data.md</a> which outlines the steps required to reproduce this project using Solafune raw data while complying with competition terms and conditions.</li>
 </ul>
 </li>
 </ul>
 <h3 id="files--run-order">Files &amp; Run Order </h3>
-<h4 id="data-preparation">Data Preparation </h4>
+<h4 id="1-data-preparation">1. Data Preparation </h4>
 <ul>
 <li>Notebook:
 <ul>
@@ -167,7 +182,7 @@ pip <span class="token function">install</span> <span class="token parameter var
 </ul>
 </li>
 </ul>
-<h4 id="model-training">Model Training </h4>
+<h4 id="2-model-training">2. Model Training </h4>
 <ul>
 <li>You can train on a <strong>Local Device</strong> or on <strong>Google Colab (GPU)</strong>.
 <ul>
@@ -204,7 +219,7 @@ pip <span class="token function">install</span> <span class="token parameter var
 </ul>
 </li>
 </ul>
-<h4 id="model-validation">Model Validation </h4>
+<h4 id="3-model-validation">3. Model Validation </h4>
 <ul>
 <li>Script:
 <ul>
@@ -223,7 +238,7 @@ pip <span class="token function">install</span> <span class="token parameter var
 </ul>
 </li>
 </ul>
-<h4 id="metric-testings-optional">Metric Testings (Optional) </h4>
+<h4 id="4-metric-testings-optional">4. Metric Testings (Optional) </h4>
 <ul>
 <li>Notebook:
 <ul>
@@ -235,7 +250,7 @@ pip <span class="token function">install</span> <span class="token parameter var
 </ul>
 </li>
 </ul>
-<h4 id="predictions">Predictions </h4>
+<h4 id="5-predictions">5. Predictions </h4>
 <ul>
 <li>Script:
 <ul>
@@ -254,7 +269,7 @@ pip <span class="token function">install</span> <span class="token parameter var
 </ul>
 </li>
 </ul>
-<h4 id="export">Export </h4>
+<h4 id="6-export">6. Export </h4>
 <ul>
 <li>Script:
 <ul>
@@ -268,8 +283,10 @@ labels <span class="token operator">=</span> REPO_ROOT <span class="token operat
 </ul>
 </li>
 </ul>
-<h2 id="license">License </h2>
-<p>MIT License</p>
+<h2 id="about">About </h2>
+<p>Data science competition hosted by Solafune, tasked to train a machine-learning model capable of detecting tree canopies in multiple urban environments from aerial and satellite imagery.</p>
+<h3 id="competition-page">Competition page: </h3>
+<p><a href="https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70">https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70</a></p>
 
       </div>
       
