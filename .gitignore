@@ -13,3 +13,5 @@ runs/segment/*
 !yolov8s-seg.pt
 sample_answer.json
 train_annotations.json
+raw/JSONS/*
+raw/zips/*
