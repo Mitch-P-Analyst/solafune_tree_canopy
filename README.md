@@ -1,7 +1,7 @@
 # Solafune Tree Canopy Detection Capstone
 
 ## Project Overview  
-The project involved building a geospatial ML pipeline using Sentinel-2 imagery to detect tree canopies via image segmentation. Hosted by Solafune, I managed data imports of image segmentations, trained a segmentation model, and produced a competition-ready submission in the Solafune Tree Canopy Detection challenge.
+This project involved building a geospatial ML pipeline using Sentinel-2 imagery to detect tree canopies via image segmentation. Hosted by Solafune, I managed data imports of image segmentations, trained a segmentation model, and produced a competition-ready submission in the Solafune Tree Canopy Detection challenge.
 
 This pipeline runs on both local environments and Google Colab with minimal path changes, enabling access to GPU acceleration for faster training.
 
@@ -13,17 +13,21 @@ This project was also my first application of YOLO-based image segmentation and 
 ### Results
 My current submission model, as of **September 24th 2025**, places in the top 10 of 271 competitors on [Solafune leaderboard](https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?modal=%22%22&menu=lb&tab=public), against the assesment criteria of >75% mean IoU on the prediction dataset.
 
-My data pipeline uses a hold-out validation split to select augmentation and model hyperparameters. 
+- Best submission score: 0.338 (competition metric)
+- Model: YOLO-based tree canopy segmentation on Sentinel-2 imagery
+- Runs on: local machine + Google Colab
+‍
 
-For the future iterations to improve my results score, I will move to stratified k-fold cross-validation (grouped by source tile to prevent leakage, stratified by class presence) for more reliable estimates. Tto address the class imbalance between “Individual Trees” and “Group of Trees,”, I’ll implement oversampling and augmentation of the minority class and tune class-specific confidence/IoU thresholds. 
+### Approach
+My best submission score of 0.338 used a hold-out validation split to select augmentation strategies and model hyperparameters. I iterated on augmentation across visual parameters such as rotation, hue and saturation, and image scaling, as well as duplicating annotations to increase training exposure and improve the YOLO-based model’s learning environment.
 
-Results will be reported as mean IoU and per-class IoU averaged across folds.
+For evaluation, I tracked precision and recall for both classes (“Individual Trees” and “Group of Trees”) to tune confidence thresholds and IoU settings and optimise the competition metric.
 
 ### Lessons Learned
 - JSON label formatting and format conversion (COCO ↔ YOLO)
-- Consistent directory structure for large-scale ML projects across local and digitial directories.
-- Benefits of augmentation techniques like HSV rotation and color grading
-- Visual data formatting. 
+- Consistent directory structure for large-scale ML projects across local and digital directories.
+- Benefits of augmentation techniques like HSV rotation, colour grading and image scaling.
+- Model validation techniques such as hold-out vs k-fold cross-validation.
 - Convolutions and convolutional neural networks.
 
 
@@ -98,7 +102,7 @@ pip install -r requirements.txt
 
 ### Data
 - Data Not Sharable by Solafune Non-Disclosure Agreement.
-    - To access data, read the [Solafune_raw_data.md](data/raw/Solafune_raw_data.md) file outlining required steps to reprouct this project using Solafune raw data while complying with compeition terms and conditions.
+    - To access data, read the [Solafune_raw_data.md](data/raw/Solafune_raw_data.md) file outlining required steps to reproduce this project using Solafune raw data while complying with compeition terms and conditions.
 
 ### Files & Run Order
 
@@ -148,8 +152,6 @@ pip install -r requirements.txt
        - Modify validation model parameters YAML file for fine tuning model
 
 
-
-
 #### Metric Testings (Optional)
 - Notebook:
    - ['notebooks/04_test_model_evaluations'](notebooks/04_test_model_evaluations.ipynb)
@@ -168,8 +170,6 @@ pip install -r requirements.txt
        - Modify prediction model parameters YAML file for final model deployment
 
 
-
-
 #### Export
 - Script:
    - ['scripts/06_export_submission.py'](scripts/06_export_submission.py)
@@ -178,10 +178,4 @@ pip install -r requirements.txt
            # Prediction Annotations
            labels = REPO_ROOT / "runs/segment/pred_train_Yolo11s_canopy_832_adamW__20251101-0151_2025-11-01 10:33" / "labels" # example
            ```
-
-
-
-
-## License
-MIT License
 
